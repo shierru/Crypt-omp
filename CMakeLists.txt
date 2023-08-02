@@ -49,8 +49,9 @@ if(CRYPT_COMPILER_ID STREQUAL "MSVC")
     target_compile_definitions(${PROJECT_NAME} PRIVATE -DHAVE_STDINT_H=1)
 elseif(CRYPT_COMPILER_ID STREQUAL "GNU")
     set_target_properties(${PROJECT_NAME} PROPERTIES POSITION_INDEPENDENT_CODE OFF)
-    set_target_properties(${PROJECT_NAME} PROPERTIES COMPILE_OPTIONS "-m32 -O3 -w")
-    set_target_properties(${PROJECT_NAME} PROPERTIES LINK_FLAGS "-m32 -O3 -static-libgcc -static-libstdc++")
+	
+    add_compile_options(-m32 -O3 -w)
+    add_link_options(-m32 -O3 -static-libgcc -static-libstdc++)
 endif()
 
 target_compile_definitions(${PROJECT_NAME} PRIVATE -DPAWN_CELL_SIZE=32)

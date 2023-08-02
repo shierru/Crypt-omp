@@ -66,16 +66,13 @@ function(botan_generate TARGET_NAME)
     # Determine botan compiler ID (--cc parameter of configure.py)
     set(BOTAN_COMPILER_ID ${CMAKE_CXX_COMPILER_ID})
     string(TOLOWER ${BOTAN_COMPILER_ID} BOTAN_COMPILER_ID)
-
-    if(BOTAN_COMPILER_ID STREQUAL "gnu")
+    if (BOTAN_COMPILER_ID STREQUAL "gnu")
         set(BOTAN_COMPILER_ID "gcc")
-    elseif(BOTAN_COMPILER_ID STREQUAL "msvc")
-        set(BOTAN_COMPILER_ID "msvc")
     endif()
 
     # Get list of enabled and disabled modules
-    get_property(enable_modules GLOBAL PROPERTY enable_modules_list)
-    get_property(disable_modules GLOBAL PROPERTY disable_modules_list)
+    get_property(ENABLE_MODULES GLOBAL PROPERTY enable_modules_list)
+    get_property(DISABLE_MODULES GLOBAL PROPERTY disable_modules_list)
 
     # Run the configure.py script
     add_custom_command(
@@ -84,14 +81,15 @@ function(botan_generate TARGET_NAME)
         COMMAND ${Python_EXECUTABLE}
             ${botan_upstream_SOURCE_DIR}/configure.py
             --quiet
-            --cc=clang
             --cp=i386
+            --cc-bin=${CMAKE_CXX_COMPILER}
+            --cc=${BOTAN_COMPILER_ID}
             $<$<BOOL:${MINGW}>:--os=mingw>
             --disable-shared
             --amalgamation
             --minimized-build
-            --enable-modules=${enable_modules}
-            --disable-modules=${disable_modules}
+            --enable-modules=${ENABLE_MODULES}
+            --disable-modules=${DISABLE_MODULES}
     )
 
     # Create target

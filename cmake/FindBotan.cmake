@@ -103,6 +103,11 @@ function(botan_generate TARGET_NAME)
         PRIVATE
             ${CMAKE_CURRENT_BINARY_DIR}/botan_all.cpp
     )
+    target_include_directories(
+        ${TARGET}
+        INTERFACE
+            ${CMAKE_CURRENT_BINARY_DIR}
+    )
     target_compile_definitions(
         ${TARGET} 
         PRIVATE

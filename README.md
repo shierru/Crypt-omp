@@ -7,3 +7,6 @@ Component uses <b>Botan version 3.0.0</b> with the <b>--amalgamation</b> paramet
 
 ## Opportunities
 * <i>Hash Functions</i>: <<b>SHA2: (224, 256), SHA-3: (512), MD4, MD5</b>>
+
+## More information
+To find out what exactly is available and how to use it, as well as how to build the component, you can find out on the <a href="../../wiki">wiki</a>

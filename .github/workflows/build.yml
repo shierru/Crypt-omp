@@ -14,10 +14,6 @@ jobs:
     name: Windows build
     runs-on: windows-2019
 
-    strategy:
-      matrix:
-        arch: [Win32, x64]
-
     steps:
     - uses: actions/checkout@v3
     
@@ -40,7 +36,7 @@ jobs:
 
     - name: Configure CMake
       working-directory: ${{github.workspace}}/build
-      run: cmake $GITHUB_WORKSPACE -DCMAKE_BUILD_TYPE=$BUILD_TYPE
+      run: cmake $GITHUB_WORKSPACE -A Win32 -DCMAKE_BUILD_TYPE=$BUILD_TYPE
 
     - name: Build
       working-directory: ${{github.workspace}}/build

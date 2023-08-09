@@ -3,6 +3,7 @@ This component provides an opportunity to use full-fledged cryptography in game 
 
 Component uses <b>Botan version 3.0.0</b> with the <b>--amalgamation</b> parameter enabled at build time, which allows you to use a build with a single source file, which is very convenient in this case.
 
+![Build Windows](https://github.com/shierru/Crypt-omp/actions/workflows/build-windows.yml/badge.svg?branch=main)
 [![License: MPL 2.0](https://img.shields.io/badge/License-MPL_2.0-brightgreen.svg)](https://opensource.org/licenses/MPL-2.0)
 
 ## Opportunities

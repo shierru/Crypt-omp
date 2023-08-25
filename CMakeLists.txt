@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.27)
 
-project(CRYPT VERSION 1.0.0)
+project(COMPONENT VERSION 1.0.0)
 
 set(CMAKE_CXX_STANDARD 20)
 
@@ -10,9 +10,13 @@ set(CRYPT_COMPILER_ID ${CMAKE_CXX_COMPILER_ID})
 # CMake modules
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
-# Botan
+# Packages
+find_package(GroupSourcesByFolder REQUIRED)
+
+# Botan package
 find_package(Botan 3.0.0 REQUIRED)
 
+# Botan functions
 botan_modules_enable(
     # SHA
     sha2_32_x86
@@ -29,13 +33,13 @@ botan_generate(BOTAN)
 # Open.MP SDK
 add_subdirectory(lib/omp-sdk)
 
-# Crypt
-add_library(${PROJECT_NAME} SHARED 
-    src/main.cpp
-    src/crypt-component.cpp
-    src/hash-function.cpp
-    src/natives.cpp
-)
+# Target
+file(GLOB_RECURSE SOURCES_LIST "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp" "${CMAKE_CURRENT_SOURCE_DIR}/src/*.hpp")
+
+add_library(${PROJECT_NAME} SHARED ${SOURCES_LIST})
+
+GroupSourcesByFolder(${PROJECT_NAME})
+
 set_target_properties(${PROJECT_NAME} PROPERTIES OUTPUT_NAME ${CRYPT_OUTPUT_NAME})
 
 target_include_directories(${PROJECT_NAME} PRIVATE
